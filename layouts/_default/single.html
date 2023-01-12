@@ -13,6 +13,14 @@
             <h2 class="single-subtitle">{{ . }}</h2>
         {{- end -}}
 
+        {{ $date := .Date.UTC.Format "Jan 2, 2006" }}
+{{ $lastmod := .Lastmod.UTC.Format "Jan 2, 2006" }}
+Published {{ $date }}
+{{ if and (ne $lastmod $date) (gt .Lastmod .Date) }}
+    <br/>Updated {{ $lastmod }}
+{{ end }}
+
+
         {{- /* Content */ -}}
         <div class="content" id="content">
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
